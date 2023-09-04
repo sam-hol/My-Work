@@ -1,0 +1,17 @@
+total number of lines - 2+2*n+n*m -> 12Lines
+Number of people in first line - 2
+Number of pairs to be tested in second line - 3
+Preference list from line 3 to 6
+with first n lines containing the Preference for women follwing n lines containing Preference for men
+Next n*m lines for 3 assingments each given as 3 lines containing woman man pairs
+
+First of all assingment is completely women centered i.e., women will pickup men
+
+Here our task is to design the algorithm, form the stable pairs using our program 
+and check the given pairs(test cases) to determine the number of unstable pairs
+
+Output must have 3lines with [1/0, 4, 0], [1/0, 4, 0], [0, 4, 1] where
+1st number says if our algorithm output and the test case matches then its 1 else 0,
+the second number says square of the no of men/women, third number says the number of
+from the test case which doesn't match with the actual algorithm output i.e.,
+number of unassigned pairs algorithm checks to determine the instability

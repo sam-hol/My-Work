@@ -1,0 +1,13 @@
+Initialize all men and women to free
+while there exist a free man m who still has a woman w to propose to 
+{
+    w = m's highest ranked such woman to whom he has not yet proposed
+    if w is free
+       (m, w) become engaged
+    else some pair (m', w) already exists
+       if w prefers m to m'
+          (m, w) become engaged
+           m' becomes free
+       else
+          (m', w) remain engaged    
+}
