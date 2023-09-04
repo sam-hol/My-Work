@@ -15,7 +15,7 @@ freeMList = {}
 freeWList = {}
 engagedPair = {}
 
-# to convert a list of people in to dictionary in python using custom logic
+# To convert a list of people in to dictionary in python using custom logic
 def listToDict(list):
     # print('List is =>',list)
     dict = {}
@@ -71,14 +71,17 @@ def updateLists(val1, val2):
     # print('Updated mlist =>',freeMList)
     # print('Updated wlist =>',freeWList)
 
-# to delete an engagement from stable pair
+# To delete an engagement from stable pair
 def deformEngagement(val):
-    # print('val in deform engagement =>',val)
-    if('Alice' in engagedPair):
-        engagedPair.pop('Alice')
-    # print('Engaged pairs now =>',engagedPair)
+    key_list = list(engagedPair.keys())
+    val_list = list(engagedPair.values())
+    position = val_list.index(val)
+    key = key_list[position]
+    print(key)
+    if(val in engagedPair.values()):
+        engagedPair.pop(key)
 
-# to get the preference values of a particular person from a certain list
+# To get the preference values of a particular person from a certain list
 def getPreferenceValues(val):
     for i, value in freeWList.items():
             for j, subvalue in enumerate(value):
@@ -127,9 +130,9 @@ def obtainStablePairs(wList, mList):
                             # print('is highest pref =>',checkPreference(f"{subkey}", key) == 1)
                             if(checkPreference(f"{subkey}", key) == 1 and (checkValInDict(subkey) == 1)):
                                 # if(key in engagedPair):
-                                deformEngagement(key)
+                                deformEngagement(subkey)
                                 # print('Engaged pairs now =>',engagedPair)
-                                updateLists('Xavier', 'Alice')
+                                # updateLists('Xavier', 'Alice')
                                 stablePair(key, f"{subkey}")
                                 updateLists(f"{subkey}", key)
                 # else:
