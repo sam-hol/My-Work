@@ -10,7 +10,6 @@
 #         m = f(i)
 #         print("no of pairs: ",m)
 
-n = 2
 freeMList = {}
 freeWList = {}
 engagedPair = {}
@@ -144,15 +143,15 @@ def compareStability(pairList):
 
 # 2 people
 # Output (Alice, Xavier), (Carol, Zeus)
-mList = [
-            ['Alice', 'Xavier', 'Zeus'], 
-            ['Carol', 'Zeus', 'Xavier']
-        ]
+# mList = [
+#             ['Alice', 'Xavier', 'Zeus'], 
+#             ['Carol', 'Zeus', 'Xavier']
+#         ]
 
-wList = [
-            ['Xavier', 'Alice', 'Carol'], 
-            ['Zeus', 'Alice', 'Carol']
-        ]
+# wList = [
+#             ['Xavier', 'Alice', 'Carol'], 
+#             ['Zeus', 'Alice', 'Carol']
+#         ]
 
 # Swapped Alice & Carol for Xavier,
 # Zeus & Xavier for Caol
@@ -181,21 +180,23 @@ wList = [
 #         ]
 
 # Xavier and Zeus swapped for Amy
-# output (Xavier, Bertha), (Yancey, Amy), (Zeus, Clare)
-# mList = [
-#             ['Xavier', 'Amy', 'Bertha', 'Clare'], 
-#             ['Yancey', 'Bertha', 'Amy', 'Clare'],
-#             ['Zeus', 'Amy', 'Bertha', 'Clare']
-#         ]
+# outpu
+# .
+# t (Xavier, Bertha), (Yancey, Amy), (Zeus, Clare)
+wList = [
+            ['Xavier', 'Amy', 'Bertha', 'Clare'], 
+            ['Yancey', 'Bertha', 'Amy', 'Clare'],
+            ['Zeus', 'Amy', 'Bertha', 'Clare']
+        ]
 
-# wList = [
-#             ['Amy', 'Yancey', 'Zeus', 'Xavier'], 
-#             ['Bertha', 'Xavier', 'Yancey', 'Zeus'],
-#             ['Clare', 'Xavier', 'Yancey', 'Zeus']
-#         ]
+mList = [
+            ['Amy', 'Yancey', 'Zeus', 'Xavier'], 
+            ['Bertha', 'Xavier', 'Yancey', 'Zeus'],
+            ['Clare', 'Xavier', 'Yancey', 'Zeus']
+        ]
 
 # 5 people
-# mList = [
+# wList = [
 #             ['Victor', 'Bertha', 'Amy', 'Diane', 'Erika', 'Clare'],
 #             ['Wyatt', 'Diane', 'Bertha', 'Amy', 'Clare', 'Erika'],
 #             ['Xavier', 'Bertha', 'Erika', 'Clare', 'Diane', 'Amy'],
@@ -203,7 +204,7 @@ wList = [
 #             ['Zeus', 'Bertha', 'Diane', 'Amy', 'Erika', 'Clare']
 #         ]
 
-# wList = [
+# mList = [
 #             ['Amy', 'Zeus','Victor', 'Wyatt', 'Yancey', 'Xavier'],
 #             ['Bertha', 'Xavier', 'Wyatt', 'Yancey', 'Victor', 'Zeus'],
 #             ['Clare', 'Wyatt', 'Xavier', 'Yancey', 'Zeus', 'Victor'],
@@ -222,6 +223,7 @@ pairList = [
 #                 ['Alice', 'Zeus']
 #             ]
 
+n = len(mList)
 freeWList = listToDict(wList)
 freeMList = listToDict(mList)
 obtainStablePairs(freeWList, freeMList)
