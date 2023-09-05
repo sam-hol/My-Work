@@ -11,6 +11,21 @@ galprefers = {
             'Clare' : ['Xavier', 'Yancey', 'Zeus']
     }
 
+# guyprefers ={
+#             'Victor': ['Bertha', 'Amy', 'Diane', 'Erika', 'Clare'],
+#             'Wyatt': ['Diane', 'Bertha', 'Amy', 'Clare', 'Erika'],
+#             'Xavier': ['Bertha', 'Erika', 'Clare', 'Diane', 'Amy'],
+#             'Yancey': ['Amy', 'Diane', 'Clare', 'Bertha', 'Erika'],
+#             'Zeus': ['Bertha', 'Diane', 'Amy', 'Erika', 'Clare']
+#     }
+# galprefers = {
+#             'Amy': ['Zeus','Victor', 'Wyatt', 'Yancey', 'Xavier'],
+#             'Bertha': ['Xavier', 'Wyatt', 'Yancey', 'Victor', 'Zeus'],
+#             'Clare': ['Wyatt', 'Xavier', 'Yancey', 'Zeus', 'Victor'],
+#             'Diane': ['Victor', 'Zeus', 'Yancey', 'Xavier', 'Wyatt'],
+#             'Erika': ['Yancey', 'Wyatt', 'Zeus', 'Xavier', 'Victor']
+#     }
+
 guys = sorted(guyprefers.keys())
 gals = sorted(galprefers.keys())
 
