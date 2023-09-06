@@ -16,7 +16,6 @@ engagedPair = {}
 
 # To convert a dict of engaged people in to list in python using some built in functions
 def dictToList(dict):
-    print(engagedPair)
     list = []
     list = [i for i in dict.items()]
     return list
@@ -29,24 +28,16 @@ def listToDict(list):
         for item in range(1, len(sublist)):
             inner_dict[sublist[item]] = "0"
         dict[sublist[0]] = inner_dict
-    # print("new dict is =>",dict)
     return dict
 
 # To form the stable pair of men and women
 def stablePair(key, value):
-    # print('\nKey =>', key)
-    # print('Val =>', value)
     engagedPair.update({key: value})
-    # print('Updated engaged pair =>',engagedPair)
-    # print('Engaged pair =>',engagedPair)
 
 # To update the free men and free women status after every engagement
 def updateLists(val1, val2):
-    print('Value 1 in update lists is =>',val1)
-    print('Value 2 in update lists is =>',val2)
     for key, value in freeMList.items():
         for subkey, subvalue in value.items():
-            # print(f"{key}.{subkey} = {subvalue}")
             if(f"{subkey}" == val1):
                 if(freeMList[key][subkey] == 1):
                         freeMList[key][subkey] = 0
@@ -54,15 +45,11 @@ def updateLists(val1, val2):
                         freeMList[key][subkey] = 1
     for key, value in freeWList.items():
         for subkey, subvalue in value.items():
-            # print(f"{key}.{subkey} = {subvalue}")
-            # print('Subkey from free womens list =>',subkey)
             if(f"{subkey}" == val2):
                 if(freeWList[key][subkey] == 1):
                         freeWList[key][subkey] = 0
                 else:
                         freeWList[key][subkey] = 1
-    # print('\nUpdated mlist =>',freeMList)
-    # print('Updated wlist =>',freeWList)
 
 # To delete an engagement from stable pair
 def deformEngagement(val):
@@ -70,39 +57,25 @@ def deformEngagement(val):
     val_list = list(engagedPair.values())
     position = val_list.index(val)
     key = key_list[position]
-    print('in deform engagement =>',key)
     if(val in engagedPair.values()):
         engagedPair.pop(key)
         updateLists(val, key)
 
 # To get the preference values of a particular person from a certain list
 def getPreferenceValues(val, name):
-    # print(freeWList.items())
     print(name)
     for i, value in freeWList.items():
-            # print('key =>', i)
-            # print('value =>', value)
             if(name == i):
                 for j, subvalue in enumerate(value):
                     if(subvalue == val):
-                        # print(' ',subvalue,'index is => ',j)
                         return j
 
 def checkPreference(val1, val2, name):
-    print('Check preference value 1 is =>',val1)
-    print('Check preference value 2 is =>',val2)
-    # print('Name in check pref =>',name)
-    # print('Free Men List =>',freeMList)
-    # print('Free Women List =>',freeWList)
     pref1 = getPreferenceValues(val1, name)
     pref2 = getPreferenceValues(val2, name)
-    print('Pref 1 =>',pref1)
-    print('Pref 2 =>',pref2)
     if(pref1 < pref2):
-            print('high preference')
             return 1
     else:
-            print('Low Preference')
             return 0
 
 def checkValInDict(val):
@@ -110,30 +83,13 @@ def checkValInDict(val):
         val_list = list(engagedPair.values())
         for i in key_list:
                 if(i == val):
-                    print('found')
                     return 1
         for j in val_list:
                 if(j == val):
-                    print('found')
                     return 1
         return 0
-        # print('engaged pair is =>',engagedPair)
-        # print('Val in checkdict =>',val)
-        # for key,value in engagedPair.items():
-        #     print('Key is =>',key,', Value is =>',val)
-        #     print(key == val or value == val)
-        #     if(val == key):
-        #             print('found')
-        #             return 1
-        #     if(val == value):
-        #             print('found')
-        #             return 1
-        #     else:
-        #             print('Not found')
-        #             return 0
 
 def getPartner(val):
-        print(engagedPair)
         key_list = list(engagedPair.keys())
         val_list = list(engagedPair.values())
         position = val_list.index(val)
@@ -141,39 +97,20 @@ def getPartner(val):
         return key
 
 def obtainStablePairs(wList, mList):
-    # print('\nIn obtain stable pairs')
-    # print('LEN OF ENGAGED PAIR =>',len(engagedPair))
     while(len(engagedPair) != n):
-        print('Enagged pairs =>',engagedPair)
-        print('Free men list =>',freeMList)
-        print('Free women list =>',freeWList)
         for key, value in mList.items():
             for subkey, subvalue in value.items():
-                # print('\nKey is =>',key)
-                # print('Value is =>',value)
-                # print('Sub Key is =>',subkey)
-                # print('Sub Value is =>',subvalue)
-                print(f"\n{key}.{subkey} = {subvalue}")
                 if(f"{subvalue}" == "0" and (key not in engagedPair) and (checkValInDict(subkey) != 1)):
-                    stablePair(key, f"{subkey}")
+                    # stablePair(key, f"{subkey}")
+                    engagedPair.update({key: subkey})
                     updateLists(f"{subkey}", key)
-                # print('\nTRUTH VALUE =>',f"{subvalue}" == "1" and (checkValInDict(subkey) != 1))
                 if(f"{subvalue}" == "1" and (key not in engagedPair)):
                     partner = getPartner(subkey)
-                    # print(partner)
-                    # print('engaged pair =>',engagedPair)
-                    # print('TRUTH VALUE =>',(checkPreference(key, partner) == 1 and (checkValInDict(subkey) == 1)))
                     if(checkPreference(key, partner, subkey) == 1 and (checkValInDict(subkey) == 1)):
-                        # if(key in engagedPair):
                         deformEngagement(subkey)
-                        print('Engaged pairs now =>',engagedPair)
-                        stablePair(key, f"{subkey}")
+                        # stablePair(key, f"{subkey}")
+                        engagedPair.update({key: subkey})
                         updateLists(f"{subkey}", key)
-
-def compareStability(couplesList, pairList):
-    print('\nIn compare stability function')
-    print('PairList =>',pairList)
-    print('Are both the same ?', set(couplesList) == set(pairList))
 
 # 2 people
 # Output (Alice, Xavier), (Carol, Zeus)
@@ -302,24 +239,9 @@ wList = [
 #             ['jan', 'ed', 'hal', 'gav', 'abe', 'bob', 'jon', 'col', 'ian', 'fred', 'dan']
 #         ]
 
-# 2 people
-pairList = [
-                ['Alice', 'Zeus'], 
-                ['Carol', 'Xavier']
-            ]
-
-# pairList = [
-#                 ['Carol', 'Xavier'], 
-#                 ['Alice', 'Zeus']
-#             ]
-
 n = len(mList)
 freeWList = listToDict(wList)
 freeMList = listToDict(mList)
 obtainStablePairs(freeWList, freeMList)
 couplesList = dictToList(engagedPair)
 print('\nCouples List =>',couplesList, "\n")
-list1 = couplesList
-list2 = pairList
-print(all(list1[i][j] == list2[i][j] for i in range(len(list1)) for j in range(len(list1[0]))))
-# compareStability(couplesList, set(pairList))
