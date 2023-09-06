@@ -30,10 +30,6 @@ def listToDict(list):
         dict[sublist[0]] = inner_dict
     return dict
 
-# To form the stable pair of men and women
-def stablePair(key, value):
-    engagedPair.update({key: value})
-
 # To update the free men and free women status after every engagement
 def updateLists(val1, val2):
     for key, value in freeMList.items():
@@ -61,23 +57,21 @@ def deformEngagement(val):
         engagedPair.pop(key)
         updateLists(val, key)
 
-# To get the preference values of a particular person from a certain list
-def getPreferenceValues(val, name):
-    print(name)
+# To check the preference values of a particular person from a other list
+def checkPreference(val1, val2, name):
     for i, value in freeWList.items():
             if(name == i):
                 for j, subvalue in enumerate(value):
-                    if(subvalue == val):
-                        return j
-
-def checkPreference(val1, val2, name):
-    pref1 = getPreferenceValues(val1, name)
-    pref2 = getPreferenceValues(val2, name)
+                    if(subvalue == val1):
+                        pref1 = j
+                    if(subvalue == val2):
+                        pref2 = j
     if(pref1 < pref2):
             return 1
     else:
             return 0
 
+# To check if a particular value exists in a dict or not
 def checkValInDict(val):
         key_list = list(engagedPair.keys())
         val_list = list(engagedPair.values())
@@ -89,6 +83,7 @@ def checkValInDict(val):
                     return 1
         return 0
 
+# To find the enagegd partner using value
 def getPartner(val):
         key_list = list(engagedPair.keys())
         val_list = list(engagedPair.values())
@@ -96,19 +91,18 @@ def getPartner(val):
         key = key_list[position]
         return key
 
+# To engage the men with women to form stable pairs
 def obtainStablePairs(wList, mList):
     while(len(engagedPair) != n):
         for key, value in mList.items():
             for subkey, subvalue in value.items():
                 if(f"{subvalue}" == "0" and (key not in engagedPair) and (checkValInDict(subkey) != 1)):
-                    # stablePair(key, f"{subkey}")
                     engagedPair.update({key: subkey})
                     updateLists(f"{subkey}", key)
                 if(f"{subvalue}" == "1" and (key not in engagedPair)):
                     partner = getPartner(subkey)
                     if(checkPreference(key, partner, subkey) == 1 and (checkValInDict(subkey) == 1)):
                         deformEngagement(subkey)
-                        # stablePair(key, f"{subkey}")
                         engagedPair.update({key: subkey})
                         updateLists(f"{subkey}", key)
 
