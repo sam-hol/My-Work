@@ -1,0 +1,28 @@
+Steps to run the gale shapely algorithm or run it in O(n^2) time:
+-----------------------------------------------------------------
+read the input data from the text file.
+assume men from number 1,...,n
+assume women from number 1,...,n
+create list of free men
+create two arrays initialised to 0:
+    one array is wife[m] and other is husband[w]
+for each man:
+    do create man-women preference array
+    do create woman-men preference array
+create a count[m] array for each man to track the number of proposals made by each man
+now create an inverse array for each woman to using her own preference lists
+code to create the inverse list is as follows:
+    for i = 1 to n:
+        inverse[pref[i]] = import
+
+Now we are ready to start the iterations of the gale shapely algorithm:
+create a procedure called obtainStablePairs:
+
+now we will first check for the free men from the free men list
+pickup the first available free man
+check the mans highest preferred woman and check if she is free using the husband[w] array
+if everything works engage this as a pair and update the same in the hus[w], wife[m] arrays
+else if woman is busy check the proposal that she had received from and get her current partner
+now use the inv array to see who she has highest pref to and based on this update the 
+ hus, wife, free man arrays
+this process continues until all the freemen are engaged 

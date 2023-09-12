@@ -1,14 +1,25 @@
 import copy
 
+# guyprefers ={
+#             'Xavier' : ['Amy', 'Bertha', 'Clare'], 
+#             'Yancey' : ['Bertha', 'Amy', 'Clare'],
+#             'Zeus' : ['Amy', 'Bertha', 'Clare']
+#     }
+# galprefers = {
+#             'Amy' : ['Yancey', 'Zeus', 'Xavier'], 
+#             'Bertha' : ['Xavier', 'Yancey', 'Zeus'],
+#             'Clare' : ['Xavier', 'Yancey', 'Zeus']
+#     }
+
 guyprefers ={
-            'Xavier' : ['Amy', 'Bertha', 'Clare'], 
-            'Yancey' : ['Bertha', 'Amy', 'Clare'],
-            'Zeus' : ['Amy', 'Bertha', 'Clare']
+            'Albert' : ['Diane', 'Emily', 'Fergie'], 
+            'Bradley' : ['Emily', 'Diane', 'Fergie'],
+            'Charles' : ['Diane', 'Emily', 'Fergie']
     }
 galprefers = {
-            'Amy' : ['Yancey', 'Zeus', 'Xavier'], 
-            'Bertha' : ['Xavier', 'Yancey', 'Zeus'],
-            'Clare' : ['Xavier', 'Yancey', 'Zeus']
+            'Diane' : ['Albert', 'Bradley', 'Charles'], 
+            'Emily' : ['Albert', 'Bradley', 'Charles'],
+            'Fergie' : ['Albert', 'Bradley', 'Charles']
     }
 
 # guyprefers ={

@@ -1,18 +1,4 @@
-# to open the input file and read all the data
-# f = open("input.txt", "r")
-# print(f.read())
-
-# for i in f:
-#     if(i == 1):
-#         n = f(i)
-#         print("no of men & women: ",n)
-#     if(i == 2):
-#         m = f(i)
-#         print("no of pairs: ",m)
-
-freeMList = {}
-freeWList = {}
-engagedPair = {}
+import sys
 
 # To convert a dict of engaged people in to list in python using some built in functions
 def dictToList(dict):
@@ -93,7 +79,7 @@ def getPartner(val):
 
 # To engage the men with women to form stable pairs
 def obtainStablePairs(wList, mList):
-    while(len(engagedPair) != n):
+    while(len(engagedPair) != noOfPeople):
         for key, value in mList.items():
             for subkey, subvalue in value.items():
                 if(f"{subvalue}" == "0" and (key not in engagedPair) and (checkValInDict(subkey) != 1)):
@@ -233,7 +219,34 @@ wList = [
 #             ['jan', 'ed', 'hal', 'gav', 'abe', 'bob', 'jon', 'col', 'ian', 'fred', 'dan']
 #         ]
 
-n = len(mList)
+# To Get the input file name from the command line arguments
+inputFileName = sys.argv[1]
+
+# To Open the input file and read the contents of the input file
+file = open(inputFileName, 'r')
+data = file.readlines()
+noOfPeople = int(data[0])
+
+mList = [[] for i in range(noOfPeople)]
+wList = [[] for i in range(noOfPeople)]
+
+# To read the men preference lists
+for i in range(1, noOfPeople+1):
+    mList[i-1] = data[i].split()
+
+# To read the women preference lists
+for j in range(noOfPeople+1, len(data)):
+    wList[j-(noOfPeople + 1)] = data[j].split()
+
+# To write output to the file
+def writeoutput(data):
+    with open('output.txt', 'w') as f:
+        for i in range(len(data)):
+            f.write(data[i])
+
+freeMList = {}
+freeWList = {}
+engagedPair = {}
 freeWList = listToDict(wList)
 freeMList = listToDict(mList)
 obtainStablePairs(freeWList, freeMList)
