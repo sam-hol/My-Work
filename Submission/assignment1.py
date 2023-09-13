@@ -1,11 +1,3 @@
-'''
-    @Author VAMSIKRISHNA NEELAM
-    EMAIL ID: neelam.11@wright.edu
-    UID: U01074399
-    CS7200 FALL 2023 Assignment1
-'''
-
-# To import the packages from the python to perform various operations
 import sys
 
 # To convert a list of people in to dictionary in python using custom logic
@@ -62,11 +54,6 @@ def engagePair(man, woman):
 
 # To do the men women matching
 def beginEngagements(man):
-    # here we will pickup the highest preferred woman from man's preference list and check if she is free to engage, if she is free we will
-    # engage both of them else if she is not free we will check her preference to the already engaged partner and proposed partner. If she 
-    # prefers current partner more than proposed partner then proposing man will propsoe to the next highest ranked women, else woman prefers 
-    # propsed partner over current partner then we will disengage the current partner and make that current partner free and engage the woman
-    # to the new partner. This is how we are doing the here in the program.
     for item, value in mensDict.items():
         if(item == man):
             for subKey, subValue in value.items():
@@ -83,18 +70,15 @@ def beginEngagements(man):
                         freeMen.append(currPartner)
 
 # To pickup a man from freeMen
-def getFreeMen(data):
+def getItems(data):
     for item in data:
         return item
 
 # To obtain the stable pairs using the gale shapely algorithm
 def obtainStablePairs():
-    # Checking for free and if there are free men we will continue matching people
     while(len(freeMen) != 0):
-            # picking up a free a man from the list of availbale free men
-            man = getFreeMen(freeMen)
-            # we will begin matching ma to woman using this function
-            beginEngagements(man)
+            item = getItems(freeMen)
+            beginEngagements(item)
 
 # To create husband and wife arrays to engage the pairs
 def createPairDicts(data):
@@ -110,59 +94,46 @@ def createMenProposalCount(data):
         counter[item] = 0
     return counter
 
+# To Get the input file name from the command line arguments
+inputFileName = sys.argv[1]
+
+# To Open the input file and read the contents of the input file
+file = open(inputFileName, 'r')
+data = file.readlines()
+noOfPeople = int(data[0])
+
 # To Create a new file and write data to the output file
 def writeToOutputFile(data):
     counter = 1
-    if inputFileName == "Input.txt":
-        outputFileName = "Output.txt"
-    else:
-        outputFileName = inputFileName.replace("In","Out")
-        print(outputFileName)
-    with open(outputFileName, 'w') as f:
+    with open('Output.txt', 'w') as f:
         for key, value in data.items():
             if(counter != 1):
                 f.writelines('\n')
             f.writelines([key, ' ', value])
             counter = counter + 1
 
-# """Program starts from here.""""
-if __name__ == "__main__":
+# To create empty lists to poulate them from the input file later
+mList = [[] for i in range(noOfPeople)]
+wList = [[] for i in range(noOfPeople)]
+freeMen = [0 for i in range(noOfPeople)]
+count = [[] for i in range(noOfPeople)]
 
-    # To Get the input file name from the command line arguments
-    if(len(sys.argv) > 2):
-        print('Sorry You must enter only one argument ! You cannot enter more than one argument ! \nHave Good Luck next time !')
-    elif(len(sys.argv) == 2):
-        inputFileName = sys.argv[1]
+# To read the men preference lists
+for i in range(1, noOfPeople+1):
+    mList[i-1] = data[i].split()
 
-        # To Open the input file and read the contents of the input file
-        file = open(inputFileName, 'r')
-        data = file.readlines()
-        noOfPeople = int(data[0])
+# To read the women preference lists
+for j in range(noOfPeople+1, len(data)):
+    wList[j-(noOfPeople + 1)] = data[j].split()
 
-        # To create empty lists to poulate them from the input file later
-        mList = [[] for i in range(noOfPeople)]
-        wList = [[] for i in range(noOfPeople)]
-        freeMen = [0 for i in range(noOfPeople)]
-        count = [[] for i in range(noOfPeople)]
-
-        # To read the men preference lists
-        for i in range(1, noOfPeople+1):
-            mList[i-1] = data[i].split()
-
-        # To read the women preference lists
-        for j in range(noOfPeople+1, len(data)):
-            wList[j-(noOfPeople + 1)] = data[j].split()
-
-        mensDict = listToDict(mList)
-        womensDict = listToDict(wList)
-        freeMen = createFreeMen(mensDict)
-        menPropCount = createMenProposalCount(freeMen)
-        husband = createPairDicts(womensDict)
-        wife = createPairDicts(mensDict)
-        inverse = createInverse(womensDict)
-        obtainStablePairs()
-        # print('Couples are =>',wife)
-        # print('Couples are =>',husband)
-        writeToOutputFile(wife)
-    else:
-        print('Sorry You must enter atleast one argument ! You cannot start without arguments ! \nHave Good Luck next time !')
+mensDict = listToDict(mList)
+womensDict = listToDict(wList)
+freeMen = createFreeMen(mensDict)
+menPropCount = createMenProposalCount(freeMen)
+husband = createPairDicts(womensDict)
+wife = createPairDicts(mensDict)
+inverse = createInverse(womensDict)
+obtainStablePairs()
+# print('Couples are =>',wife)
+# print('Couples are =>',husband)
+writeToOutputFile(wife)
