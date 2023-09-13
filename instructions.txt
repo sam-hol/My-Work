@@ -1,6 +1,6 @@
 Use the approach and the data structures used in the text book and class-------------------------------------
 time complexity should be O(n^2)---------------------------------------------------------------------------------------------------
-use the same algorithm as taught in class and class text
+use the same algorithm as taught in class and class text-------------------------------------------------------------------
 Input is a txt file with specified format------------------------------------------------------------------------------------------
 Format of the output file should be as specified------------------------------------------------------------------------------------
 Naming conventions : --------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ Output file: Output.txt---------------------------------------------------------
 The python program should receive only one argument from command line ----------------------------------------
 and generate file in current working directory--------------------------------------------------------------
 Create Tests folder in current working directory with Several Input and corresponding output files--------------------------------------------
-Include pseudo code of the gale shapely algorithm in program as comments to see the correspondence between ur code and the algorithm
+Include pseudo code of the gale shapely algorithm in program as comments to see the correspondence between ur code and the algorithm------------------------------------
 U must use python 3----------------------------------------------------------------------------------
 Provide the team member names, email ids in source code files and README.txt---------------------------------
 Submission name should be Assignment1.zip
