@@ -1,7 +1,5 @@
-3
-Xavier Amy Bertha Clare
-Yancey Bertha Amy Clare
-Zeus Amy Bertha Clare
-Amy Yancey Zeus Xavier
-Bertha Xavier Yancey Zeus
-Clare Xavier Yancey Zeus
+2
+Alice Xavier Zeus
+Carol Xavier Zeus
+Xavier Carol Alice
+Zeus Carol Alice

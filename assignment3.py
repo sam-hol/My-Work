@@ -18,7 +18,6 @@ def createFreeMen(data):
     for key,value in data.items():
         freeMen[count] = key
         count = count + 1
-
     return freeMen
 
 # To Create numerlss for mens preference list
@@ -43,28 +42,21 @@ def createPreferences(original_dict):
 # To create inverse lists for women
 def createInverse(data):
     result_dict = {}
-
     for key, values in data.items():
         inner_dict = {value: index for index, value in enumerate(values, 1)}
         result_dict[key] = inner_dict
-
     return result_dict
 
 # To from the engagement
 def engagePair(man, woman):
-    # print('Free Men are =>',freeMen)
-    print('Man in engage pair is =>',man)
     husband[woman] = man
     wife[man] = woman
     freeMen.remove(man)
     # print('Man is =>',man)
     # print('woman is =>',woman)
-    print('Husband array =>',husband)
-    print('Wife array =>',wife)
+    # print('Husband array =>',husband)
+    # print('Wife array =>',wife)
     # print('Free Men are =>',freeMen)
-    # for (index, item) in enumerate(freeMen):
-    #         print('\nCounter =>',index)
-    #         print('\nMAN IS =>',item) 
 
 # To do the men women matching
 def beginMatching(man):
@@ -73,17 +65,17 @@ def beginMatching(man):
     for item, value in mensDict.items():
         if(item == man):
             for subKey, subValue in value.items():
-                print('Value =>',subKey)
+                # print('Value =>',subKey)
                 woman = subKey
                 menPropCount[man] = menPropCount[man] + 1
                 if(husband[woman] == None and wife[man] == None):
                     engagePair(man, woman)
                 elif(husband[woman] != None and wife[man] == None):
-                    print('woman is engaged with =>',husband[woman])
+                    # print('woman is engaged with =>',husband[woman])
                     currPartner = husband[woman]
                     propPartner = man
                     if(inverse[woman][propPartner] < inverse[woman][currPartner]):
-                        print('Prop partner is =>',propPartner)
+                        # print('Prop partner is =>',propPartner)
                         engagePair(propPartner, woman)
                         wife[currPartner] = None
                         freeMen.append(currPartner)
@@ -103,7 +95,7 @@ def obtainStablePairs():
     while(len(freeMen) != 0):
         # for item in freeMen:
             item = getItems(freeMen)
-            print('\nITEM =>',item)
+            # print('\nITEM =>',item)
             # print('Updated free men array is =>',freeMen)
             # print('\nCounter =>',index)
             # print('\nMAN IS =>',item)
@@ -158,3 +150,5 @@ wife = createPairDicts(mensDict)
 inverse = createInverse(womensDict)
 # print('Inverse is =>',inverse)
 obtainStablePairs()
+print('Couples are =>',wife)
+# print('Couples are =>',husband)
