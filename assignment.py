@@ -1,4 +1,6 @@
-import sys
+freeMList = {}
+freeWList = {}
+engagedPair = {}
 
 # To convert a dict of engaged people in to list in python using some built in functions
 def dictToList(dict):
@@ -15,6 +17,10 @@ def listToDict(list):
             inner_dict[sublist[item]] = "0"
         dict[sublist[0]] = inner_dict
     return dict
+
+# To form the stable pair of men and women
+def stablePair(key, value):
+    engagedPair.update({key: value})
 
 # To update the free men and free women status after every engagement
 def updateLists(val1, val2):
@@ -43,21 +49,23 @@ def deformEngagement(val):
         engagedPair.pop(key)
         updateLists(val, key)
 
-# To check the preference values of a particular person from a other list
-def checkPreference(val1, val2, name):
+# To get the preference values of a particular person from a certain list
+def getPreferenceValues(val, name):
+    print(name)
     for i, value in freeWList.items():
             if(name == i):
                 for j, subvalue in enumerate(value):
-                    if(subvalue == val1):
-                        pref1 = j
-                    if(subvalue == val2):
-                        pref2 = j
+                    if(subvalue == val):
+                        return j
+
+def checkPreference(val1, val2, name):
+    pref1 = getPreferenceValues(val1, name)
+    pref2 = getPreferenceValues(val2, name)
     if(pref1 < pref2):
             return 1
     else:
             return 0
 
-# To check if a particular value exists in a dict or not
 def checkValInDict(val):
         key_list = list(engagedPair.keys())
         val_list = list(engagedPair.values())
@@ -69,7 +77,6 @@ def checkValInDict(val):
                     return 1
         return 0
 
-# To find the enagegd partner using value
 def getPartner(val):
         key_list = list(engagedPair.keys())
         val_list = list(engagedPair.values())
@@ -77,32 +84,66 @@ def getPartner(val):
         key = key_list[position]
         return key
 
-# To engage the men with women to form stable pairs
 def obtainStablePairs(wList, mList):
-    while(len(engagedPair) != noOfPeople):
+    while(len(engagedPair) != n):
         for key, value in mList.items():
             for subkey, subvalue in value.items():
                 if(f"{subvalue}" == "0" and (key not in engagedPair) and (checkValInDict(subkey) != 1)):
+                    # stablePair(key, f"{subkey}")
                     engagedPair.update({key: subkey})
                     updateLists(f"{subkey}", key)
                 if(f"{subvalue}" == "1" and (key not in engagedPair)):
                     partner = getPartner(subkey)
                     if(checkPreference(key, partner, subkey) == 1 and (checkValInDict(subkey) == 1)):
                         deformEngagement(subkey)
+                        # stablePair(key, f"{subkey}")
                         engagedPair.update({key: subkey})
                         updateLists(f"{subkey}", key)
 
 # 2 people
 # Output (Alice, Xavier), (Carol, Zeus)
+# mList = [
+#             ['Alice', 'Xavier', 'Zeus'], 
+#             ['Carol', 'Zeus', 'Xavier']
+#         ]
+
+# wList = [
+#             ['Xavier', 'Alice', 'Carol'], 
+#             ['Zeus', 'Alice', 'Carol']
+#         ]
+
+# Output (Alice, Xavier), (Carol, Zeus)
 mList = [
             ['Alice', 'Xavier', 'Zeus'], 
-            ['Carol', 'Zeus', 'Xavier']
+            ['Carol', 'Xavier', 'Zeus']
         ]
 
 wList = [
             ['Xavier', 'Alice', 'Carol'], 
             ['Zeus', 'Alice', 'Carol']
         ]
+
+# Output (Alice, Zeus), (Carol, Xavier)
+# mList = [
+#             ['Alice', 'Zeus', 'Xavier'], 
+#             ['Carol', 'Xavier', 'Zeus']
+#         ]
+
+# wList = [
+#             ['Xavier', 'Alice', 'Carol'], 
+#             ['Zeus', 'Alice', 'Carol']
+#         ]
+
+# Output (Alice, Zeus), (Carol, Xavier)
+# mList = [
+#             ['Alice', 'Zeus', 'Xavier'], 
+#             ['Carol', 'Zeus', 'Xavier']
+#         ]
+
+# wList = [
+#             ['Xavier', 'Carol', 'Alice'], 
+#             ['Zeus', 'Alice', 'Carol']
+#         ]
 
 # Swapped Alice & Carol for Xavier,
 # Zeus & Xavier for Caol
@@ -219,34 +260,7 @@ wList = [
 #             ['jan', 'ed', 'hal', 'gav', 'abe', 'bob', 'jon', 'col', 'ian', 'fred', 'dan']
 #         ]
 
-# To Get the input file name from the command line arguments
-inputFileName = sys.argv[1]
-
-# To Open the input file and read the contents of the input file
-file = open(inputFileName, 'r')
-data = file.readlines()
-noOfPeople = int(data[0])
-
-mList = [[] for i in range(noOfPeople)]
-wList = [[] for i in range(noOfPeople)]
-
-# To read the men preference lists
-for i in range(1, noOfPeople+1):
-    mList[i-1] = data[i].split()
-
-# To read the women preference lists
-for j in range(noOfPeople+1, len(data)):
-    wList[j-(noOfPeople + 1)] = data[j].split()
-
-# To write output to the file
-def writeoutput(data):
-    with open('output.txt', 'w') as f:
-        for i in range(len(data)):
-            f.write(data[i])
-
-freeMList = {}
-freeWList = {}
-engagedPair = {}
+n = len(mList)
 freeWList = listToDict(wList)
 freeMList = listToDict(mList)
 obtainStablePairs(freeWList, freeMList)
