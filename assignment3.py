@@ -38,7 +38,6 @@ def createPreferences(original_dict):
     
     return numericDict
 
-
 # To create inverse lists for women
 def createInverse(data):
     result_dict = {}
@@ -52,53 +51,33 @@ def engagePair(man, woman):
     husband[woman] = man
     wife[man] = woman
     freeMen.remove(man)
-    # print('Man is =>',man)
-    # print('woman is =>',woman)
-    # print('Husband array =>',husband)
-    # print('Wife array =>',wife)
-    # print('Free Men are =>',freeMen)
 
 # To do the men women matching
 def beginMatching(man):
-    # print('received man is =>',man)
-    # print('Inverse is =>',inverse)
     for item, value in mensDict.items():
         if(item == man):
             for subKey, subValue in value.items():
-                # print('Value =>',subKey)
                 woman = subKey
                 menPropCount[man] = menPropCount[man] + 1
                 if(husband[woman] == None and wife[man] == None):
                     engagePair(man, woman)
                 elif(husband[woman] != None and wife[man] == None):
-                    # print('woman is engaged with =>',husband[woman])
                     currPartner = husband[woman]
                     propPartner = man
                     if(inverse[woman][propPartner] < inverse[woman][currPartner]):
-                        # print('Prop partner is =>',propPartner)
                         engagePair(propPartner, woman)
                         wife[currPartner] = None
                         freeMen.append(currPartner)
 
+# To pickup a man from freeMen
 def getItems(data):
     for item in data:
         return item
 
 # To obtain the stable pairs using the gale shapely algorithm
 def obtainStablePairs():
-    # for (index, item) in enumerate(freeMen):
-    #         print('\nCounter =>',index)
-    #         print('MAN IS =>',item)
-    # print('received data is =>',data)
-    # freeMen.sort()
-    # print('Free men =>',freeMen.sort())
     while(len(freeMen) != 0):
-        # for item in freeMen:
             item = getItems(freeMen)
-            # print('\nITEM =>',item)
-            # print('Updated free men array is =>',freeMen)
-            # print('\nCounter =>',index)
-            # print('\nMAN IS =>',item)
             beginMatching(item)
 
 # To create husband and wife arrays to engage the pairs
@@ -143,12 +122,7 @@ freeMen = createFreeMen(mensDict)
 menPropCount = createMenProposalCount(freeMen)
 husband = createPairDicts(womensDict)
 wife = createPairDicts(mensDict)
-# print('Husband =>',husband)
-# print('wife =>',wife)
-# print('Mens Preferences =>',mensDict)
-# print('womens Preferences =>',womensDict)
 inverse = createInverse(womensDict)
-# print('Inverse is =>',inverse)
 obtainStablePairs()
 print('Couples are =>',wife)
 # print('Couples are =>',husband)
