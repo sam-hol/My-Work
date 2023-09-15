@@ -32,14 +32,12 @@ def createFreeMen(data):
 def createPreferences(original_dict):
     nameToNumeric = {}
     counter = 1
-    
     for names in original_dict.values():
         for name in names:
             if name not in nameToNumeric:
                 nameToNumeric[name] = counter
                 counter += 1
     numericDict = {}
-    
     for name, preferences in original_dict.items():
         newPreferences = [nameToNumeric[person] for person in preferences]
         numericDict[name] = newPreferences
@@ -73,7 +71,6 @@ def beginEngagements(man):
     # prefers current partner more than proposed partner then proposing man will propsoe to the next highest ranked women, else woman prefers 
     # propsed partner over current partner then we will disengage the current partner and make that current partner free and engage the woman
     # to the new partner. This is how we are doing the here in the program.
-
     index = menPropCount[man]
     keys = list(mensDict[man].keys())
     woman = keys[index]
