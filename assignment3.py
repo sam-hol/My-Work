@@ -60,6 +60,12 @@ def engagePair(man, woman):
     wife[man] = woman
     freeMen.remove(man)
 
+# To Retrieve the highest ranked woman on mens preference list
+def getHighRankWoman(man):
+    index = menPropCount[man]
+    keys = list(mensDict[man].keys())
+    return keys[index]
+
 # To do the men women matching
 def beginEngagements(man):
     # here we will pickup the highest preferred woman from man's preference list and check if she is free to engage, if she is free we will
@@ -67,33 +73,36 @@ def beginEngagements(man):
     # prefers current partner more than proposed partner then proposing man will propsoe to the next highest ranked women, else woman prefers 
     # propsed partner over current partner then we will disengage the current partner and make that current partner free and engage the woman
     # to the new partner. This is how we are doing the here in the program.
-    for item, value in mensDict.items():
-        if(item == man):
-            for subKey, subValue in value.items():
-                woman = subKey
-                menPropCount[man] = menPropCount[man] + 1
-                if(husband[woman] == None and wife[man] == None):
-                    engagePair(man, woman)
-                elif(husband[woman] != None and wife[man] == None):
-                    currPartner = husband[woman]
-                    propPartner = man
-                    if(inverse[woman][propPartner] < inverse[woman][currPartner]):
-                        engagePair(propPartner, woman)
-                        wife[currPartner] = None
-                        freeMen.append(currPartner)
 
-# To pickup a man from freeMen
-def getFreeMen(data):
-    for item in data:
-        return item
+    # for item, value in mensDict.items():
+    #     if(item == man):
+    index = menPropCount[man]
+    keys = list(mensDict[man].keys())
+    woman = keys[index]
+    # woman = getHighRankWoman(man)
+    menPropCount[man] = menPropCount[man] + 1
+    if(husband[woman] == None and wife[man] == None):
+        engagePair(man, woman)
+        # break
+    elif(husband[woman] != None and wife[man] == None):
+        currPartner = husband[woman]
+        propPartner = man
+        if(inverse[woman][propPartner] < inverse[woman][currPartner]):
+            engagePair(propPartner, woman)
+            wife[currPartner] = None
+            freeMen.append(currPartner)
+            # break
+
+# To return a man from free men array
+def getMan(data):
+    for man in data:
+        return man
 
 # To obtain the stable pairs using the gale shapely algorithm
 def obtainStablePairs():
-    # Checking for free and if there are free men we will continue matching people
+    # Checking for free men and if there are free men we will continue matching people
     while(len(freeMen) != 0):
-            # picking up a free a man from the list of availbale free men
-            man = getFreeMen(freeMen)
-            # we will begin matching ma to woman using this function
+            man = getMan(freeMen)
             beginEngagements(man)
 
 # To create husband and wife arrays to engage the pairs
@@ -113,11 +122,12 @@ def createMenProposalCount(data):
 # To Create a new file and write data to the output file
 def writeToOutputFile(data):
     counter = 1
-    if inputFileName == "Input.txt":
+    if(inputFileName == "Input.txt"):
         outputFileName = "Output.txt"
     else:
         outputFileName = inputFileName.replace("In","Out")
-        print(outputFileName)
+
+    # To write data to output file     
     with open(outputFileName, 'w') as f:
         for key, value in data.items():
             if(counter != 1):
@@ -127,13 +137,12 @@ def writeToOutputFile(data):
 
 # """Program starts from here.""""
 if __name__ == "__main__":
-
     # To Get the input file name from the command line arguments
     if(len(sys.argv) > 2):
         print('Sorry You must enter only one argument ! You cannot enter more than one argument ! \nHave Good Luck next time !')
     elif(len(sys.argv) == 2):
+        # To read the name of the input file from the Command line arguments
         inputFileName = sys.argv[1]
-
         # To Open the input file and read the contents of the input file
         file = open(inputFileName, 'r')
         data = file.readlines()
@@ -161,8 +170,6 @@ if __name__ == "__main__":
         wife = createPairDicts(mensDict)
         inverse = createInverse(womensDict)
         obtainStablePairs()
-        # print('Couples are =>',wife)
-        # print('Couples are =>',husband)
-        writeToOutputFile(wife)
+        writeToOutputFile(husband)
     else:
         print('Sorry You must enter atleast one argument ! You cannot start without arguments ! \nHave Good Luck next time !')
