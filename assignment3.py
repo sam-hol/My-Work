@@ -74,16 +74,12 @@ def beginEngagements(man):
     # propsed partner over current partner then we will disengage the current partner and make that current partner free and engage the woman
     # to the new partner. This is how we are doing the here in the program.
 
-    # for item, value in mensDict.items():
-    #     if(item == man):
     index = menPropCount[man]
     keys = list(mensDict[man].keys())
     woman = keys[index]
-    # woman = getHighRankWoman(man)
     menPropCount[man] = menPropCount[man] + 1
     if(husband[woman] == None and wife[man] == None):
         engagePair(man, woman)
-        # break
     elif(husband[woman] != None and wife[man] == None):
         currPartner = husband[woman]
         propPartner = man
@@ -91,7 +87,6 @@ def beginEngagements(man):
             engagePair(propPartner, woman)
             wife[currPartner] = None
             freeMen.append(currPartner)
-            # break
 
 # To return a man from free men array
 def getMan(data):
